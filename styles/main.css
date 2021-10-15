@@ -1,0 +1,164 @@
+/* main.css */
+
+body {
+  margin: 0px;
+  overflow: hidden;
+  color: white;
+  text-align: center;
+  font-weight: 200;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+h1 {
+  position: absolute;
+  width: 100%;
+  font-size: 36px;
+  z-index: 1;
+  font-weight: 300;
+  line-height: 1.1;
+}
+
+h2,
+label {
+  font-size: 14px;
+  font-weight: 200;
+}
+
+h2 {
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+}
+
+a {
+  color: white;
+}
+a:hover {
+  color: rgb(26, 243, 160);
+}
+
+#scene-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.ui-container {
+  position: absolute;
+  width: 350px;
+  height: 500px;
+  z-index: 999;
+
+  margin: 50px;
+  padding: 25px;
+}
+
+.ui-slider {
+  position: relative;
+  margin: 30px auto;
+}
+
+.ui-title {
+  position: relative;
+  margin: 20px auto;
+  text-align: left;
+  bottom: -20px;
+}
+
+/* Reset slider style  */
+.slider-styled,
+.slider-styled .noUi-handle .noUi-target * {
+  box-shadow: none;
+  background-color: black;
+}
+
+/* Hide markers on slider handles */
+.slider-styled .noUi-handle::before,
+.slider-styled .noUi-handle::after {
+  display: none;
+}
+
+.noUi-value {
+  font-size: 12px;
+  top: 15px;
+  font-weight: 400;
+  color: #eeeeee;
+}
+
+#slider-connect {
+  height: 5px;
+}
+#slider-range-vals {
+  height: 5px;
+}
+#slider-range-tree {
+  height: 5px;
+}
+
+#slider-connect .noUi-connect {
+  background: #eeeeee;
+}
+#slider-range-vals .noUi-connect {
+  background-image: linear-gradient(
+    0.25turn,
+    rgb(12, 8, 135),
+    rgb(116, 3, 165),
+    rgb(177, 48, 137),
+    rgb(219, 98, 101),
+    rgb(246, 160, 61),
+    rgb(239, 250, 32)
+  );
+}
+#slider-range-vals .noUi-connect img {
+  min-width: 100%;
+}
+#slider-range-tree .noUi-connect {
+  background: #eeeeee;
+}
+
+#slider-connect .noUi-handle {
+  height: 10px;
+  width: 10px;
+  top: -3px;
+  right: -5px; /* half the width */
+  border-radius: 100%;
+}
+#slider-range-vals .noUi-handle {
+  height: 10px;
+  width: 10px;
+  top: -3px;
+  right: -5px; /* half the width */
+  border-radius: 100%;
+}
+#slider-range-tree .noUi-handle {
+  height: 10px;
+  width: 10px;
+  top: -3px;
+  right: -5px; /* half the width */
+  border-radius: 100%;
+}
+
+.slider-styled .noUi-handle .noUi-connect .noUi-touch-area {
+  border: 20px solid transparent;
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  width: auto;
+  height: auto;
+}
+
+.slider-styled .noUi-handle:hover {
+  border: none;
+}
+
+.form-check input {
+  background-color: #000000;
+  border: 2px solid #eeeeee;
+}
+
+.form-check-input:checked {
+  background-color: rgb(246, 160, 61);
+  background-color: #eeeeee;
+}

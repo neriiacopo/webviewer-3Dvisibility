@@ -1,0 +1,49 @@
+{
+	"metadata": {
+		"version": 4.5,
+		"type": "Object",
+		"generator": "Object3D.toJSON"
+	},
+	"geometries": [
+		{
+			"uuid": "2FE782BE-AF63-49B8-BBA4-E0F5591B9F78",
+			"type": "TorusGeometry",
+			"radius": 1,
+			"tube": 0.26,
+			"radialSegments": 20,
+			"tubularSegments": 100,
+			"arc": 6.283185307179586
+		}],
+	"materials": [
+		{
+			"uuid": "E5E158F9-E2AD-4769-87AD-31AAF77404B1",
+			"type": "MeshStandardMaterial",
+			"color": 16777215,
+			"roughness": 1,
+			"metalness": 0,
+			"emissive": 0,
+			"envMapIntensity": 1,
+			"refractionRatio": 0.98,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true,
+			"colorWrite": true,
+			"stencilWrite": false,
+			"stencilWriteMask": 255,
+			"stencilFunc": 519,
+			"stencilRef": 0,
+			"stencilFuncMask": 255,
+			"stencilFail": 7680,
+			"stencilZFail": 7680,
+			"stencilZPass": 7680
+		}],
+	"object": {
+		"uuid": "78317D5B-0EE2-400A-90CF-AD41BCD8318C",
+		"type": "Mesh",
+		"name": "Torus",
+		"layers": 1,
+		"matrix": [50,0,0,0,0,49.838943922812355,4.009946216442946,0,0,-4.009946216442946,49.838943922812355,0,503.200603591933,48.64795050492185,-246.37559170494382,1],
+		"geometry": "2FE782BE-AF63-49B8-BBA4-E0F5591B9F78",
+		"material": "E5E158F9-E2AD-4769-87AD-31AAF77404B1"
+	}
+}

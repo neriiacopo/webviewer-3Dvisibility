@@ -28,6 +28,12 @@
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.0/nouislider.js"></script>
 
+    <!--- FontAwesome --->
+    <script
+      src="https://kit.fontawesome.com/5cfb20eb4c.js"
+      crossorigin="anonymous"
+    ></script>
+
     <!-- Fonts -->
     <link
       href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:200,300,400,500,600"
@@ -40,35 +46,81 @@
   <body>
     <div class="ui-container">
       <h1 class="ui-title lightcolor">3D Visibility Porta Romana</h1>
+      <h2 class="ui-title lightcolor">Select the analysis</h2>
+      <select class="ui-slider form-select" id="viz-select">
+        <option value="viz50">50m radius</option>
+        <option selected value="viz100w">100m radius - Weighted</option>
+        <option value="viz100">100m radius - Fall</option>
+        <option value="viz100t">100m radius - Spring</option>
+        <option value="viz100g">100m radius - Public space</option>
+        <option value="viz300">300m radius</option>
+      </select>
+      <h2 class="ui-title lightcolor">Thresold</h2>
+      <div
+        class="ui-slider slider-styled with-pips"
+        id="slider-range-vals"
+      ></div>
       <h2 class="ui-title lightcolor">Size</h2>
       <div class="ui-slider slider-styled" id="slider-connect"></div>
-      <h2 class="ui-title lightcolor">Thresold</h2>
-      <div class="ui-slider slider-styled" id="slider-range-vals"></div>
       <h2 class="ui-title lightcolor">Tree distance</h2>
       <div class="ui-slider slider-styled" id="slider-range-tree"></div>
+    </div>
 
+    <div
+      class="btn-group-vertical ui-camera position-absolute top-0 end-0"
+      id="cameracontainer"
+      data-toggle="buttons"
+    >
+      <h2 class="ui-title lightcolor"><i class="fas fa-eye"></i></h2>
       <div class="form-check form-check-inline">
         <input
           class="form-check-input light"
           type="radio"
-          name="radiobtn-viz-radius"
-          id="btn100"
-          value="viz100"
-          checked
+          name="camerasettings"
+          id="cam1"
+          value="1"
         />
-        <label class="form-check-label" for="inlineRadio1">100m</label>
       </div>
       <div class="form-check form-check-inline">
         <input
           class="form-check-input"
           type="radio"
-          name="radiobtn-viz-radius"
-          id="btn50"
-          value="viz50"
+          name="camerasettings"
+          id="cam2"
+          value="2"
         />
-        <label class="form-check-label" for="inlineRadio2">50m</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="camerasettings"
+          id="cam3"
+          value="3"
+        />
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="camerasettings"
+          id="cam4"
+          value="4"
+          checked
+        />
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="camerasettings"
+          id="cam5"
+          value="5"
+          checked
+        />
       </div>
     </div>
+
     <script type="module" src="./js/app.js"></script>
     <script type="module" src="./js/test.js"></script>
   </body>

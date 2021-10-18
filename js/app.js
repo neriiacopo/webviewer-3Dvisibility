@@ -48,7 +48,7 @@ function loadExt() {
   loader.load(modelPath, function (object) {
     // if you want to add your custom material
     var materialObj = new THREE.MeshStandardMaterial({
-      color: new THREE.Color("DarkSlateGray"),
+      color: new THREE.Color("darkslategray"),
     });
 
     // var materialObj = new THREE.MeshNormalMaterial();
@@ -105,6 +105,22 @@ function createXYZRGB(arr, viz) {
     for (let i = 0; i < arr.length; i++) {
       arrViz.push(arr[i].viz50);
     }
+  } else if (viz == "viz100g") {
+    for (let i = 0; i < arr.length; i++) {
+      arrViz.push(arr[i].viz100g);
+    }
+  } else if (viz == "viz100t") {
+    for (let i = 0; i < arr.length; i++) {
+      arrViz.push(arr[i].viz100t);
+    }
+  } else if (viz == "viz100w") {
+    for (let i = 0; i < arr.length; i++) {
+      arrViz.push(arr[i].viz100w);
+    }
+  } else if (viz == "viz300") {
+    for (let i = 0; i < arr.length; i++) {
+      arrViz.push(arr[i].viz300);
+    }
   }
 
   filterVals();
@@ -115,8 +131,7 @@ function filterVals() {
   const positions = [];
   const colors = [];
 
-  const color = new THREE.Color();
-
+  //const color = new THREE.Color();
   for (let i = 0; i < arr.length; i++) {
     if (
       parseInt(arrViz[i]) >= threshold[0] &&
@@ -132,12 +147,9 @@ function filterVals() {
       positions.push(x, y, z);
 
       // colors
-      const R = arr[i].R;
-      const G = arr[i].G;
-      const B = arr[i].B;
+      const color = extractColor(arrViz[i]);
 
-      color.setRGB(R, G, B);
-      colors.push(color.r, color.g, color.b);
+      colors.push(color[0], color[1], color[2]);
     }
   }
 
@@ -177,19 +189,12 @@ async function fetchText(url, viz) {
 
   let csv = csvToArray(data);
 
-  btn50.addEventListener("change", function (event) {
-    viz = event.target.value;
+  selectForm.onchange = function (sel) {
     scene.remove(ptcloud);
-    console.log(viz);
-    createXYZRGB(csv, viz);
-  });
 
-  btn100.addEventListener("change", function (event) {
-    viz = event.target.value;
-    scene.remove(ptcloud);
-    console.log(viz);
+    viz = sel.target.value;
     createXYZRGB(csv, viz);
-  });
+  };
 
   createXYZRGB(csv, viz);
 }
@@ -202,7 +207,55 @@ function render() {
   renderer.render(scene, camera);
 }
 
+// ------------------------- Generate colors for values
+const gradient = [
+  [0, [0.05, 0.03, 0.53]],
+  [25, [0.5, 0.01, 0.66]],
+  [50, [0.8, 0.28, 0.47]],
+  [75, [0.97, 0.59, 0.25]],
+  [101, [0.94, 0.98, 0.13]],
+];
+
+function extractColor(x) {
+  let colorRange = [];
+
+  for (let i = 0; i < 4; i++) {
+    if (x >= gradient[i][0] && x < gradient[i + 1][0]) {
+      colorRange = [i, i + 1];
+    }
+  }
+
+  //Get the two closest colors
+  var firstcolor = gradient[colorRange[0]][1];
+  var secondcolor = gradient[colorRange[1]][1];
+
+  //Calculate ratio between the two closest colors
+  var firstcolor_x = 100 * (gradient[colorRange[0]][0] / 100);
+  var secondcolor_x = 100 * (gradient[colorRange[1]][0] / 100) - firstcolor_x;
+  var slider_x = 100 * (x / 100) - firstcolor_x;
+  var ratio = slider_x / secondcolor_x;
+
+  //Get the color with pickHex(thx, less.js's mix function!)
+  var result = pickHex(secondcolor, firstcolor, ratio);
+  return result;
+}
+
+function pickHex(color1, color2, weight) {
+  var p = weight;
+  var w = p * 2 - 1;
+  var w1 = (w / 1 + 1) / 2;
+  var w2 = 1 - w1;
+  var rgb = [
+    color1[0] * w1 + color2[0] * w2,
+    color1[1] * w1 + color2[1] * w2,
+    color1[2] * w1 + color2[2] * w2,
+  ];
+  return rgb;
+}
+
 // ------------------------- UI
+let selectForm = document.getElementById("viz-select");
+
 let sizeSlider = document.getElementById("slider-connect");
 noUiSlider.create(sizeSlider, {
   start: 5,
@@ -215,14 +268,14 @@ noUiSlider.create(sizeSlider, {
 
 let filterSlider = document.getElementById("slider-range-vals");
 noUiSlider.create(filterSlider, {
-  start: [0, 4000],
+  start: [0, 100],
   connect: true,
   behaviour: "drag",
   range: {
     min: 0,
-    max: 4000,
+    max: 100,
   },
-  pips: { mode: "count", values: 4 },
+  pips: { mode: "values", values: [0, 25, 50, 75, 100] },
 });
 
 let treeSlider = document.getElementById("slider-range-tree");
@@ -236,9 +289,34 @@ noUiSlider.create(treeSlider, {
   },
 });
 
-let btn50 = document.getElementById("btn50");
-let btn100 = document.getElementById("btn100");
+// ------------------------- CAMERA PRESET
 
+const cameraPositions = [
+  [0, [940, 40, -245]],
+  [1, [52, 35, -193]],
+  [2, [750, 250, -250]],
+  [3, [200, 250, -150]],
+  [4, [495, 480, -200]],
+];
+
+function getActive() {
+  let value = document.querySelector(".form-check-input:checked").value - 1;
+  let cameraPosition = cameraPositions[value][1];
+  camera.position.set(cameraPosition[0], cameraPosition[1], cameraPosition[2]);
+
+  // Center setting
+  controls.target.set(493, 0, -233);
+
+  if (value == 2 || value == 3) {
+    controls.target.set(cameraPosition[0], 0, cameraPosition[2]);
+  }
+  controls.update();
+}
+document
+  .querySelectorAll(".form-check-input")
+  .forEach((input) => input.addEventListener("click", getActive));
+
+// ------------------------- INIT
 init();
 loadExt();
 fetchText(ptcloudpath, viz);
@@ -258,5 +336,5 @@ treeSlider.noUiSlider.on("update", function (values) {
 function initialSettings() {
   threshold = filterSlider.noUiSlider.get();
   treedist = treeSlider.noUiSlider.get();
-  viz = "viz100";
+  viz = "viz100w";
 }

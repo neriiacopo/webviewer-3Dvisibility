@@ -48,7 +48,6 @@ a:hover {
   width: 350px;
   height: 500px;
   z-index: 999;
-
   margin: 50px;
   padding: 25px;
 }
@@ -63,6 +62,17 @@ a:hover {
   margin: 20px auto;
   text-align: left;
   bottom: -20px;
+}
+
+.ui-camera {
+  position: absolute;
+  float: right;
+  width: auto;
+  height: auto;
+  margin-top: 50px;
+  z-index: 999;
+  margin-right: 50px;
+  padding: 25px;
 }
 
 /* Reset slider style  */
@@ -160,5 +170,20 @@ a:hover {
 
 .form-check-input:checked {
   background-color: rgb(246, 160, 61);
+}
+
+.form-select {
   background-color: #eeeeee;
+}
+
+option:focus {
+  background-color: black;
+}
+
+.btn {
+  background-color: #eeeeee;
+}
+
+.btn:checked {
+  background-color: #ff0000;
 }

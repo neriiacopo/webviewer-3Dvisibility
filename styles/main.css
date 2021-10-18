@@ -169,7 +169,7 @@ a:hover {
 }
 
 .form-check-input:checked {
-  background-color: rgb(246, 160, 61);
+  background-color: #eeeeee;
 }
 
 .form-select {

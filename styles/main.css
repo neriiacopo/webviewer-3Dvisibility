@@ -58,10 +58,11 @@ a:hover {
 }
 
 .ui-title {
-    margin-top: 25px;
-    position: relative;
     margin: 20px auto;
+    /* padding-bottom: 20px; */
+    position: relative;
     text-align: left;
+    /* margin-bottom: 50px; */
 }
 
 .ui-camera {
